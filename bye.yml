@@ -1,0 +1,111 @@
+# This file adheres to the YAML5 style.
+{
+  title: "php-labs",
+  source: ".",
+  destination: "../_build",
+  site_root: "/php-labs",
+  site_root_local: "C:/projects/bye/_build",
+  styles: "../static/style.css",
+  templates: "../templates",
+  index_title: "Лабораторные работы по PHP",
+  theme: "light",
+  generated_exts: [
+      "php",
+      "html",
+      "txt",
+  ],
+  examples_descriptions: [
+    {
+      name: "lab2",
+      title: "Перевод периода в секундах в количество дней, часов, минут и секунд",
+      tags: [
+          "php",
+          "date",
+      ],
+    },
+    {
+      name: "lab3",
+      title: "Табулирование синуса",
+      tags: [
+          "php",
+          "math",
+      ],
+    },
+    {
+      name: "lab4",
+      title: "Квадраты чисел",
+      tags: [
+          "php",
+          "math",
+      ],
+    },
+    {
+      name: "lab5",
+      title: "Сравнение цветов",
+      tags: [
+          "php",
+          "color",
+          "array",
+          "hex",
+      ],
+    },
+    {
+      name: "lab6",
+      title: "Чтение и вывод текстовых файлов",
+      tags: [
+          "php",
+          "files",
+          "array",
+          "class",
+      ],
+    },
+    {
+      name: "lab7",
+      title: "Файлы и массивы",
+      tags: [
+          "php",
+          "files",
+          "array",
+          "class",
+      ],
+    },
+    {
+      name: "lab8",
+      title: "Сбор данных о работе пользователя",
+      tags: [
+          "php",
+          "files",
+          "sha256",
+          "class",
+      ],
+    },
+    {
+      name: "lab9",
+      title: "Создание функции в отдельном файле",
+      tags: [
+          "php",
+          "functions",
+          "arrays",
+          "files",
+      ],
+    },
+    {
+      name: "lab10",
+      title: "Передача массива как параметра в функцию",
+      tags: [
+          "php",
+          "functions",
+          "arrays",
+      ],
+    },
+    {
+      name: "lab11",
+      title: "Таблица цветов в модели RGB",
+      tags: [
+          "php",
+          "functions",
+          "rgb",
+      ],
+    },
+  ],
+}

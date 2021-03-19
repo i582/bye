@@ -1,0 +1,54 @@
+{{define "file"}}
+  <div class="code-body markdown-body">
+      {{$root := .}}
+      {{range .Parts}}
+        <div class="row{{if .FirstCodePart}} first{{end}}{{if .LastCodePart}} last{{end}}">
+          <div class="comment-col">
+              {{if and .RawCode .Comment}}
+                <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+                     version="1.1"
+                     xmlns="http://www.w3.org/2000/svg"
+                     x="0px" y="0px"
+                     viewBox="0 0 240.823 240.823"
+                     xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+              {{end}}
+
+              {{if .Comment}}
+                  {{ .Comment }}
+              {{end}}
+          </div>
+            {{if not .Comment}}
+          <div class="code-col chroma code-col-empty-comment">
+              {{else if or .RawCode (not (or .AfterCode .BeforeCode))}}
+            <div class="code-col chroma">
+                {{else}}
+              <div class="code-col-empty">
+                  {{end}}
+
+                  {{if .FirstCodePart}}
+                    <div class="code-header">
+                      <div class="file-name monospace">{{ $root.Name }}</div>
+                      <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+                      <div class="copy-code js-copy-code monospace" data-code="{{$root.Code}}">copy</div>
+                    </div>
+                  {{end}}
+
+                  {{if .RawCode}}
+                    <pre>{{.Code}}</pre>
+                  {{end}}
+
+                  {{if not .Comment}}
+              </div>
+                {{else if or .RawCode (not (or .AfterCode .BeforeCode))}}
+            </div>
+              {{else}}
+          </div>
+        {{end}}
+        </div>
+      {{end}}
+  </div>
+{{end}}

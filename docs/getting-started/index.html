@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Bye by Example | Getting started</title>
+  <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<script>
+  onkeydown = (e) => {
+
+    if (e.key === 'ArrowLeft') {
+      window.location.href = '/install\/index.html';
+    }
+
+    if (e.key === 'ArrowRight') {
+      window.location.href = '/pages-formatting\/index.html';
+    }
+
+  };
+
+  const toggleComment = (button, mustClose) => {
+    const needClose = button.classList.contains('js-close-comment') || mustClose;
+    const text = button.nextElementSibling;
+    const commentCol = button.parentElement;
+    const codeCol = commentCol.nextElementSibling;
+
+    if (needClose) {
+      text.classList.add('comment-col-hidden');
+      commentCol.classList.add('with-hidden-text');
+    } else {
+      text.classList.remove('comment-col-hidden');
+      commentCol.classList.remove('with-hidden-text');
+    }
+
+    const row = codeCol.parentElement;
+
+    if (!row.classList.contains('first')) {
+      codeCol.style.paddingTop = '0';
+    }
+
+    if (!row.classList.contains('last')) {
+      codeCol.style.paddingBottom = '0';
+    }
+
+    button.classList.toggle('js-close-comment');
+    button.classList.toggle('closed');
+  };
+
+  onload = () => {
+    const buttons = [...document.getElementsByClassName('js-toggle-comment')];
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        toggleComment(button);
+      });
+    });
+
+    const toggleComments = [...document.getElementsByClassName('js-toggle-all-comments')];
+    toggleComments.forEach((toggleButton) => {
+      const codeBody = toggleButton.parentElement.parentElement.parentElement.parentElement;
+      const buttons = [...codeBody.getElementsByClassName('js-toggle-comment')];
+
+      toggleButton.addEventListener('click', () => {
+        buttons.forEach((button) => {
+          toggleComment(button, false);
+        });
+      });
+    });
+
+    let arrows = [...document.getElementsByClassName('js-toggle-comment-button')];
+    arrows.forEach((arrow) => {
+      arrow.addEventListener('click', () => {
+        arrow.classList.toggle('closed');
+      });
+    });
+
+    const temporarilyChangeText = (el, newText, oldText, timeout = 1000) => {
+      el.textContent = newText;
+      setTimeout(() => {
+        el.textContent = oldText;
+      }, timeout);
+    };
+
+    const copyButtons = [...document.getElementsByClassName('js-copy-code')];
+    copyButtons.forEach((button) => {
+      let code = button.getAttribute('data-code');
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(code).then(function() {
+          temporarilyChangeText(button, 'copied', 'copy');
+        }, function(err) {
+          temporarilyChangeText(button, 'copy error', 'copy');
+        });
+      });
+    });
+  };
+
+</script>
+<body class="example-page">
+
+<header>
+  <a class="title" href="/index.html">Bye by Example</a>
+
+  <a class="github-link monospace" href="https://github.com/username/repo" target="_blank">Bye by Example on GitHub</a>
+</header>
+
+<main>
+  <div class="article-header">
+    <div class="tags">
+
+
+      <a class="tag monospace" href="/tags/bye/index.html">#bye</a>
+
+      <a class="tag monospace" href="/tags/getting-started/index.html">#getting-started</a>
+
+    </div>
+    <h1 class="example-title">Getting started</h1>
+    <div class="generate-date monospace">
+      <span>Generated March 19, 2021</span>
+    </div>
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>To get started with bye, let&rsquo;s take a look at the basic commands.</p>
+
+      <p>First of all, the <code>create</code> command is used to create the skeleton of the project.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">create.sh</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="$ bye create &lt;project-name&gt;
+">copy
+            </div>
+          </div>
+
+
+          <pre>$ bye create &lt;project-name&gt;
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>The command takes one argument, the name of the project. The command will create a folder with the base
+        skeleton of the project.</p>
+
+      <p>Let&rsquo;s go to the folder with the project using the <code>cd</code> command:</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace"></div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="$ cd &lt;project-name&gt;
+">copy
+            </div>
+          </div>
+
+
+          <pre>$ cd &lt;project-name&gt;
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>Now, while in the project folder, run the <code>serve</code> command.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">serve.sh</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="$ bye serve
+">copy
+            </div>
+          </div>
+
+
+          <pre>$ bye serve
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>In the terminal, you should see the process of generating the site, as well as a message that the site has been
+        launched on the local server.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">output.sh</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="Started local server on port 3005.
+Go to http://localhost:3005 to view the site.
+">copy
+            </div>
+          </div>
+
+
+          <pre>Started <span class="nb">local</span> server on port 3005.
+Go to http://localhost:3005 to view the site.
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>Go to the specified address. The generated sample site should open.</p>
+
+      <p>If all is well, then congratulations, now let&rsquo;s take a closer look.</p>
+
+      <h2>Folder structure</h2>
+
+      <p>After executing the <code>create</code> command, the basic skeleton of the project was created. Let&rsquo;s
+        take a look at the structure of the folders.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p><code>bye.yml</code> is a config file, we will look at it next.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+
+
+          <div class="code-header">
+            <div class="file-name monospace"></div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="# `bye.yml` is a config file, we will look at it next.
+│   bye.yml
+│
+# `pages` is the folder in which all page sources are stored.
+├───pages
+# `index.md` at the root, this is the index page source.
+│   │   index.md
+│   │
+# each page is a separate folder.
+│   ├───example
+# which contains the `index.md` file with the page markup.
+│   │       index.md
+│   │
+│   └───hello-bye
+│           index.md
+│
+# `static` is a folder with styles and page templates.
+└───static
+    ├───styles
+# `style.css` is the main style file. In it, you can change the styles as you want.
+    │       style.css
+    │
+# `templates` are HTML markup of pages with some data that is inserted at the stage of generation. You can change them however you want.
+    └───templates
+            file.html
+            index.html
+            page-part.html
+            page-preview.html
+            page.html
+            tag-page-preview.html
+            tags.html
+">copy
+            </div>
+          </div>
+
+
+          <pre>│   bye.yml
+│
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p><code>pages</code> is the folder in which all page sources are stored.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>├───pages
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p><code>index.md</code> at the root, this is the index page source.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>│   │   index.md
+│   │
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>each page is a separate folder.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>│   ├───example
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>which contains the <code>index.md</code> file with the page markup.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>│   │       index.md
+│   │
+│   └───hello-bye
+│           index.md
+│
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p><code>static</code> is a folder with styles and page templates.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>└───static
+    ├───styles
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p><code>style.css</code> is the main style file. In it, you can change the styles as you want.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>    │       style.css
+    │
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row last">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p><code>templates</code> are HTML markup of pages with some data that is inserted at the stage of generation.
+            You can change them however you want.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>    └───templates
+            file.html
+            index.html
+            page-part.html
+            page-preview.html
+            page.html
+            tag-page-preview.html
+            tags.html
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+
+      <h2>Adding pages</h2>
+
+      <p>Now let&rsquo;s add a new page.</p>
+
+      <p>First of all, you need to create a <em>new folder</em> in the <code>pages</code> folder, and in it create the
+        <code>index.md</code> file. Add some text to it so that the page is not blank.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">new-page.sh</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="mkdir &#34;some-folder&#34;
+cd &#34;some-folder&#34;
+vim index.md
+">copy
+            </div>
+          </div>
+
+
+          <pre>mkdir <span class="s2">&#34;some-folder&#34;</span>
+<span class="nb">cd</span> <span class="s2">&#34;some-folder&#34;</span>
+vim index.md
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>Now let&rsquo;s move on to the settings in the config.</p>
+
+      <p>We need the <code>pages</code> field, which describes all the pages of the site.</p>
+
+      <p>Let&rsquo;s add a new entry.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">bye.yml</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="{
+	name: &#34;some-folder&#34;,
+	title: &#34;Some title&#34;,
+	tags: [
+		&#34;some&#34;,
+		&#34;tag&#34;,
+	],
+},
+">copy
+            </div>
+          </div>
+
+
+          <pre>{<span class="w">
+</span><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;some-folder&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;Some title&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span
+                    class="p">[</span><span class="w">
+</span><span class="w">    </span><span class="s2">&#34;some&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="s2">&#34;tag&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w"></span>}<span class="p">,</span><span class="w">
+</span></pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>The name <strong>must match</strong> the name of the previously created folder. The title can be anything. Tags
+        can be anything.</p>
+
+      <p>The pages will be something like this:</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">bye.yml</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="pages: [
+    {
+      name: &#34;hello-bye&#34;,
+      title: &#34;Hello Bye&#34;,
+      tags: [
+          &#34;hello&#34;,
+          &#34;bye&#34;,
+      ],
+    },
+    {
+      name: &#34;example&#34;,
+      title: &#34;Example of page&#34;,
+      tags: [
+          &#34;rust&#34;,
+      ],
+    },
+    {
+      name: &#34;&lt;folder&gt;&#34;,
+      title: &#34;Some title&#34;,
+      tags: [
+          &#34;some&#34;,
+          &#34;tag&#34;,
+      ],
+    },
+],
+">copy
+            </div>
+          </div>
+
+
+          <pre><span class="nt">pages</span><span class="p">:</span><span class="w"> </span><span
+                    class="p">[</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;hello-bye&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;Hello Bye&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span
+                    class="p">[</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;hello&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;bye&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span>}<span class="p">,</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;example&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;Example of page&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span
+                    class="p">[</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;rust&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span>}<span class="p">,</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;&lt;folder&gt;&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;Some title&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span
+                    class="p">[</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;some&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;tag&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span>}<span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">]</span><span class="p">,</span><span class="w">
+</span></pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>Now stop the server (press <code>Ctrl + C</code>) and run the <code>serve</code> command again.</p>
+
+      <p>Go to the site and reload it, you should see a new page.</p>
+
+      <p>If everything went well, let&rsquo;s take a look at how to delete pages.</p>
+
+      <h2>Deleting pages</h2>
+
+      <p>It&rsquo;s simple, comment out or delete the entry in the config and the page will not be displayed.</p>
+
+      <blockquote>
+        <p>However, if you delete the folder, but <em>don&rsquo;t delete the entry</em>, then you will get an error
+          while generating.</p>
+      </blockquote>
+
+    </div>
+  </div>
+
+
+</main>
+
+<footer>
+  <div class="inner-footer">
+    <div class="related-posts">
+      <div class="related-posts-title monospace">Related</div>
+
+
+      <div class="post-preview">
+        <div class="generate-date monospace">
+          <span>Generated March 19, 2021</span>
+        </div>
+        <a class="post-preview-title" href="/install/index.html">Install</a>
+        <div class="tags">
+
+
+          <a class="tag monospace" href="/tags/bye/index.html">#bye</a>
+
+          <a class="tag monospace" href="/tags/install/index.html">#install</a>
+
+        </div>
+      </div>
+
+
+      <div></div>
+
+
+      <div class="post-preview">
+        <div class="generate-date monospace">
+          <span>Generated March 19, 2021</span>
+        </div>
+        <a class="post-preview-title" href="/pages-formatting/index.html">Features of page formatting</a>
+        <div class="tags">
+
+
+          <a class="tag monospace" href="/tags/format/index.html">#format</a>
+
+          <a class="tag monospace" href="/tags/page/index.html">#page</a>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="footer-text">
+      <div class="copyright monospace">
+        Generated by <a href="https://github.com/i582/bye">bye</a> © 2021 Petr Makhnev
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>

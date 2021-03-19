@@ -1,0 +1,18 @@
+{{define "page_preview"}}
+    {{ if . }}
+      <div class="post-preview">
+        <div class="generate-date monospace">
+          <span>Generated {{ .GeneratedTime }}</span>
+        </div>
+        <a class="post-preview-title" href="{{ .Common.SiteRoot }}/{{ .Link }}">{{ .Title }}</a>
+        <div class="tags">
+            {{$root := .}}
+            {{range .Tags }}
+              <a class="tag monospace" href="{{ $root.Common.SiteRoot }}/tags/{{ . }}/index.html">#{{ . }}</a>
+            {{end}}
+        </div>
+      </div>
+    {{ else }}
+      <div></div>
+    {{end}}
+{{end}}

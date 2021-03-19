@@ -16,11 +16,11 @@ func isAllowedComment(line []byte) bool {
 
 	switch {
 	case bytes.HasPrefix(line, []byte("//")):
-		return bytes.HasPrefix(line, []byte("//!"))
+		return !bytes.HasPrefix(line, []byte("//!"))
 	case bytes.HasPrefix(line, []byte("<!--")):
-		return bytes.HasPrefix(line, []byte("<!--!"))
+		return !bytes.HasPrefix(line, []byte("<!--!"))
 	case bytes.HasPrefix(line, []byte("#")) && !bytes.HasPrefix(line, []byte("#[")):
-		return bytes.HasPrefix(line, []byte("#!"))
+		return !bytes.HasPrefix(line, []byte("#!"))
 	}
 
 	return false

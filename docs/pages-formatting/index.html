@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Bye by Example | Features of page formatting</title>
+  <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<script>
+  onkeydown = (e) => {
+
+    if (e.key === 'ArrowLeft') {
+      window.location.href = '/getting-started\/index.html';
+    }
+
+  };
+
+  const toggleComment = (button, mustClose) => {
+    const needClose = button.classList.contains('js-close-comment') || mustClose;
+    const text = button.nextElementSibling;
+    const commentCol = button.parentElement;
+    const codeCol = commentCol.nextElementSibling;
+
+    if (needClose) {
+      text.classList.add('comment-col-hidden');
+      commentCol.classList.add('with-hidden-text');
+    } else {
+      text.classList.remove('comment-col-hidden');
+      commentCol.classList.remove('with-hidden-text');
+    }
+
+    const row = codeCol.parentElement;
+
+    if (!row.classList.contains('first')) {
+      codeCol.style.paddingTop = '0';
+    }
+
+    if (!row.classList.contains('last')) {
+      codeCol.style.paddingBottom = '0';
+    }
+
+    button.classList.toggle('js-close-comment');
+    button.classList.toggle('closed');
+  };
+
+  onload = () => {
+    const buttons = [...document.getElementsByClassName('js-toggle-comment')];
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        toggleComment(button);
+      });
+    });
+
+    const toggleComments = [...document.getElementsByClassName('js-toggle-all-comments')];
+    toggleComments.forEach((toggleButton) => {
+      const codeBody = toggleButton.parentElement.parentElement.parentElement.parentElement;
+      const buttons = [...codeBody.getElementsByClassName('js-toggle-comment')];
+
+      toggleButton.addEventListener('click', () => {
+        buttons.forEach((button) => {
+          toggleComment(button, false);
+        });
+      });
+    });
+
+    let arrows = [...document.getElementsByClassName('js-toggle-comment-button')];
+    arrows.forEach((arrow) => {
+      arrow.addEventListener('click', () => {
+        arrow.classList.toggle('closed');
+      });
+    });
+
+    const temporarilyChangeText = (el, newText, oldText, timeout = 1000) => {
+      el.textContent = newText;
+      setTimeout(() => {
+        el.textContent = oldText;
+      }, timeout);
+    };
+
+    const copyButtons = [...document.getElementsByClassName('js-copy-code')];
+    copyButtons.forEach((button) => {
+      let code = button.getAttribute('data-code');
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(code).then(function() {
+          temporarilyChangeText(button, 'copied', 'copy');
+        }, function(err) {
+          temporarilyChangeText(button, 'copy error', 'copy');
+        });
+      });
+    });
+  };
+
+</script>
+<body class="example-page">
+
+<header>
+  <a class="title" href="/index.html">Bye by Example</a>
+
+  <a class="github-link monospace" href="https://github.com/username/repo" target="_blank">Bye by Example on GitHub</a>
+</header>
+
+<main>
+  <div class="article-header">
+    <div class="tags">
+
+
+      <a class="tag monospace" href="/tags/format/index.html">#format</a>
+
+      <a class="tag monospace" href="/tags/page/index.html">#page</a>
+
+    </div>
+    <h1 class="example-title">Features of page formatting</h1>
+    <div class="generate-date monospace">
+      <span>Generated March 19, 2021</span>
+    </div>
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>The main feature of <strong>bye</strong> is the generation of a two-column representation for the code, where
+        the code is on the right side and the comment is on the right side.</p>
+
+      <p>To implement this, some features have been added to page formatting.</p>
+
+      <h3>Example</h3>
+
+      <p>Let&rsquo;s take a look at an example:</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>This is a simple golang program.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">example.go</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="// This is a simple golang program.
+package main
+
+// In order to *display* something on the screen, we need to include the `&#34;fmt&#34;` package.
+import (
+    &#34;fmt&#34;
+)
+
+func main() {
+    // To display the string, use the special function `Println`.
+    fmt.Println(&#34;Hello bye!&#34;)
+}
+">copy
+            </div>
+          </div>
+
+
+          <pre><span class="kn">package</span> <span class="nx">main</span>
+
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>In order to <em>display</em> something on the screen, we need to include the <code>&quot;fmt&quot;</code>
+            package.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&#34;fmt&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span
+                          class="p">{</span>
+</pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row last">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>To display the string, use the special function <code>Println</code>.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span
+                          class="p">(</span><span class="s">&#34;Hello bye!&#34;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>The comments above were originally written in code, but after generation they were placed on the side of the
+        code.</p>
+
+      <h3>Code comments</h3>
+
+      <p>Some comments can be very long and so that they do not interfere with reading the code, they can be folded with
+        an arrow next to the comment.</p>
+
+      <p>You might want to hide <strong>all comments</strong> in order to <em>fully enjoy</em> the code. To do this,
+        there is a <code>&quot;toggle comment&quot;</code> button above the code on the right, which will hide all
+        comments. There is also a button for copying a file next to it.</p>
+
+      <p>In some cases, you will want to leave a comment in the code, in which case you need to put a exclamation mark
+        after the symbols of the beginning of the comments</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">example.php</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="//! Use an exclamation mark to comment on your code.
+/**
+ * Or you can use multi-line comments.
+ */
+$a = 100;
+echo $a;
+">copy
+            </div>
+          </div>
+
+
+          <pre><span class="c1">//! Use an exclamation mark to comment on your code.
+</span><span class="c1"></span><span class="sd">/**
+</span><span class="sd"> * Or you can use multi-line comments.
+</span><span class="sd"> */</span>
+<span class="nv">$a</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nv">$a</span><span class="p">;</span>
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+
+      <h3>Themes</h3>
+
+      <p><strong>bye</strong> tries to be comfortable for customizing both <em>layout</em> and <em>styles</em>. By
+        default, you already have two styles. The current style is <em>standard light</em>, but you can switch to <em>dark</em>
+        as well. To do this, change the value of the <code>theme</code> field in the config.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">bye.yml</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="theme: &#34;dark&#34;,
+">copy
+            </div>
+          </div>
+
+
+          <pre><span class="nt">theme</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;dark&#34;</span><span
+                    class="p">,</span><span class="w">
+</span></pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+
+      <h3>Tags</h3>
+
+      <p><strong>bye</strong> has the ability to give each page specific tags. Tags are set in the page description in
+        the config in the <code>tags</code> field. For each tag, its own page will be created, where all pages with this
+        tag will be.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first">
+        <div class="comment-col">
+
+
+        </div>
+
+        <div class="code-col chroma code-col-empty-comment">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">bye.yml</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="pages: [
+    {
+      name: &#34;some name&#34;,
+      title: &#34;Some title&#34;,
+# Here we set the required tags.
+      tags: [
+          &#34;tag1&#34;,
+          &#34;tag2&#34;,
+      ],
+    },
+],
+">copy
+            </div>
+          </div>
+
+
+          <pre><span class="nt">pages</span><span class="p">:</span><span class="w"> </span><span
+                    class="p">[</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;some name&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span
+                    class="s2">&#34;Some title&#34;</span><span class="p">,</span><span class="w">
+</span></pre>
+
+
+        </div>
+
+      </div>
+
+      <div class="row last">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>Here we set the required tags.</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+            
+
+            
+
+            
+                <pre><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span
+                          class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;tag1&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">          </span><span class="s2">&#34;tag2&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">      </span><span class="p">]</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span>}<span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">]</span><span class="p">,</span><span class="w">
+</span></pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+
+      <h3>Footer</h3>
+
+      <p>Let&rsquo;s take a look at the bottom of the page. There you will see a footer that contains a link to the next
+        page (and the previous one, if it exists). You can use the <em>left-right arrows</em> to navigate through the
+        pages.</p>
+
+    </div>
+  </div>
+
+
+</main>
+
+<footer>
+  <div class="inner-footer">
+    <div class="related-posts">
+      <div class="related-posts-title monospace">Related</div>
+
+
+      <div class="post-preview">
+        <div class="generate-date monospace">
+          <span>Generated March 19, 2021</span>
+        </div>
+        <a class="post-preview-title" href="/getting-started/index.html">Getting started</a>
+        <div class="tags">
+
+
+          <a class="tag monospace" href="/tags/bye/index.html">#bye</a>
+
+          <a class="tag monospace" href="/tags/getting-started/index.html">#getting-started</a>
+
+        </div>
+      </div>
+
+
+      <div></div>
+
+
+      <div></div>
+
+
+    </div>
+
+    <div class="footer-text">
+      <div class="copyright monospace">
+        Generated by <a href="https://github.com/i582/bye">bye</a> © 2021 Petr Makhnev
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Bye by Example | Install</title>
+  <link rel="stylesheet" href="/static/styles/style.css">
+</head>
+<script>
+  onkeydown = (e) => {
+
+    if (e.key === 'ArrowRight') {
+      window.location.href = '/getting-started\/index.html';
+    }
+
+  };
+
+  const toggleComment = (button, mustClose) => {
+    const needClose = button.classList.contains('js-close-comment') || mustClose;
+    const text = button.nextElementSibling;
+    const commentCol = button.parentElement;
+    const codeCol = commentCol.nextElementSibling;
+
+    if (needClose) {
+      text.classList.add('comment-col-hidden');
+      commentCol.classList.add('with-hidden-text');
+    } else {
+      text.classList.remove('comment-col-hidden');
+      commentCol.classList.remove('with-hidden-text');
+    }
+
+    const row = codeCol.parentElement;
+
+    if (!row.classList.contains('first')) {
+      codeCol.style.paddingTop = '0';
+    }
+
+    if (!row.classList.contains('last')) {
+      codeCol.style.paddingBottom = '0';
+    }
+
+    button.classList.toggle('js-close-comment');
+    button.classList.toggle('closed');
+  };
+
+  onload = () => {
+    const buttons = [...document.getElementsByClassName('js-toggle-comment')];
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        toggleComment(button);
+      });
+    });
+
+    const toggleComments = [...document.getElementsByClassName('js-toggle-all-comments')];
+    toggleComments.forEach((toggleButton) => {
+      const codeBody = toggleButton.parentElement.parentElement.parentElement.parentElement;
+      const buttons = [...codeBody.getElementsByClassName('js-toggle-comment')];
+
+      toggleButton.addEventListener('click', () => {
+        buttons.forEach((button) => {
+          toggleComment(button, false);
+        });
+      });
+    });
+
+    let arrows = [...document.getElementsByClassName('js-toggle-comment-button')];
+    arrows.forEach((arrow) => {
+      arrow.addEventListener('click', () => {
+        arrow.classList.toggle('closed');
+      });
+    });
+
+    const temporarilyChangeText = (el, newText, oldText, timeout = 1000) => {
+      el.textContent = newText;
+      setTimeout(() => {
+        el.textContent = oldText;
+      }, timeout);
+    };
+
+    const copyButtons = [...document.getElementsByClassName('js-copy-code')];
+    copyButtons.forEach((button) => {
+      let code = button.getAttribute('data-code');
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(code).then(function() {
+          temporarilyChangeText(button, 'copied', 'copy');
+        }, function(err) {
+          temporarilyChangeText(button, 'copy error', 'copy');
+        });
+      });
+    });
+  };
+
+</script>
+<body class="example-page">
+
+<header>
+  <a class="title" href="/index.html">Bye by Example</a>
+
+  <a class="github-link monospace" href="https://github.com/username/repo" target="_blank">Bye by Example on GitHub</a>
+</header>
+
+<main>
+  <div class="article-header">
+    <div class="tags">
+
+
+      <a class="tag monospace" href="/tags/bye/index.html">#bye</a>
+
+      <a class="tag monospace" href="/tags/install/index.html">#install</a>
+
+    </div>
+    <h1 class="example-title">Install</h1>
+    <div class="generate-date monospace">
+      <span>Generated March 19, 2021</span>
+    </div>
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>Greetings to the documentation for bye. Let&rsquo;s start with the installation.</p>
+
+    </div>
+  </div>
+
+
+  <div class="file-row">
+
+    <div class="code-body markdown-body">
+
+
+      <div class="row first last">
+        <div class="comment-col">
+
+          <svg class="js-toggle-comment js-toggle-comment-button-arrow js-close-comment toggle-comment-button toggle-comment-button-arrow"
+               version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               x="0px" y="0px"
+               viewBox="0 0 240.823 240.823"
+               xml:space="preserve">
+                    <path d="M57.633,129.007L165.93,237.268c4.752,4.74,12.451,4.74,17.215,0c4.752-4.74,4.752-12.439,0-17.179
+                        l-99.707-99.671l99.695-99.671c4.752-4.74,4.752-12.439,0-17.191c-4.752-4.74-12.463-4.74-17.215,0L57.621,111.816
+                        C52.942,116.507,52.942,124.327,57.633,129.007z"/>
+                    </svg>
+
+
+          <p>If you have the <code>Golang</code> toolbox, you just need to run the following command to install:</p>
+
+
+        </div>
+
+        <div class="code-col chroma">
+
+
+          <div class="code-header">
+            <div class="file-name monospace">install.sh</div>
+            <div class="toggle-comment js-toggle-all-comments monospace">toggle comments</div>
+            <div class="copy-code js-copy-code monospace" data-code="# If you have the `Golang` toolbox, you just need to run the following command to install:
+$ go get github.com/i582/bye
+...
+">copy
+            </div>
+          </div>
+
+
+          <pre>$ go get github.com/i582/bye
+...
+</pre>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="text-row">
+    <div class="text-content markdown-body">
+      <p>Otherwise, please download the required version from the <a href="https://github.com/i582/bye/releases"
+                                                                     target="_blank">releases</a>.</p>
+
+      <p>After successful installation, let&rsquo;s go to the beginning of use.</p>
+
+    </div>
+  </div>
+
+
+</main>
+
+<footer>
+  <div class="inner-footer">
+    <div class="related-posts">
+      <div class="related-posts-title monospace">Related</div>
+
+
+      <div></div>
+
+
+      <div></div>
+
+
+      <div class="post-preview">
+        <div class="generate-date monospace">
+          <span>Generated March 19, 2021</span>
+        </div>
+        <a class="post-preview-title" href="/getting-started/index.html">Getting started</a>
+        <div class="tags">
+
+
+          <a class="tag monospace" href="/tags/bye/index.html">#bye</a>
+
+          <a class="tag monospace" href="/tags/getting-started/index.html">#getting-started</a>
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="footer-text">
+      <div class="copyright monospace">
+        Generated by <a href="https://github.com/i582/bye">bye</a> © 2021 Petr Makhnev
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>

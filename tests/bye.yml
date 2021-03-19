@@ -1,0 +1,30 @@
+# This file adheres to the YAML5 style.
+{
+  title: "Bye by Example",
+  source: "./pages",
+  destination: "../_build",
+  site_root: "",
+  site_root_local: "../_build",
+  styles: "../static/styles/style.css",
+  templates: "../static/templates",
+  index_title: "Bye by Example",
+  github_link: "https://github.com/i582/php-labs",
+  theme: "dark",
+  pages: [
+    {
+      name: "hello-bye",
+      title: "Hello Bye",
+      tags: [
+          "hello",
+          "bye",
+      ],
+    },
+    {
+      name: "example",
+      title: "Example of page",
+      tags: [
+          "rust",
+      ],
+    },
+  ],
+}

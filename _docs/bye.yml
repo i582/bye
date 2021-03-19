@@ -1,0 +1,39 @@
+# This file adheres to the YAML5 style.
+{
+  title: "Bye by Example",
+  source: "./pages",
+  destination: "../docs",
+  site_root: "",
+  site_root_local: "../docs",
+  styles: "static/styles/style.css",
+  templates: "static/templates",
+  index_title: "Bye by Example",
+  github_link: "https://github.com/username/repo",
+  theme: "dark",
+  pages: [
+    {
+      name: "install",
+      title: "Install",
+      tags: [
+          "bye",
+          "install",
+      ],
+    },
+    {
+      name: "getting-started",
+      title: "Getting started",
+      tags: [
+          "bye",
+          "getting-started",
+      ],
+    },
+    {
+      name: "pages-formatting",
+      title: "Features of page formatting",
+      tags: [
+          "format",
+          "page",
+      ],
+    },
+  ],
+}

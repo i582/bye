@@ -6,6 +6,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"regexp"
+	"strings"
 
 	fparser "bye/internal/parser/file"
 )
@@ -16,8 +17,11 @@ type Part struct {
 	Text    template.HTML
 	TextRaw string
 
-	FileParts []fparser.Part
-	IsFile    bool
+	Lang        []byte
+	Filename    []byte
+	FileContent []byte
+	FileParts   []fparser.Part
+	IsFile      bool
 }
 
 type Parser struct {
@@ -62,15 +66,20 @@ func (p *Parser) Parse() {
 	last := 0
 	startCode := false
 	for i, line := range p.lines {
-		if !bytes.Contains(line, []byte("```")) {
+		line = bytes.TrimLeft(line, " \t")
+		if !bytes.HasPrefix(line, []byte("```")) {
 			continue
 		}
 
 		startCode = !startCode
 		if startCode {
-			p.parts = append(p.parts, Part{
-				TextRaw: string(bytes.Join(p.lines[last:i], []byte("\n"))),
-			})
+			text := string(bytes.Join(p.lines[last:i], []byte("\n")))
+			text = strings.TrimLeft(text, "\r")
+			if text != "" {
+				p.parts = append(p.parts, Part{
+					TextRaw: text,
+				})
+			}
 			last = i
 		} else {
 			lines := p.lines[last : i+1]
@@ -81,8 +90,11 @@ func (p *Parser) Parse() {
 			fileParser.Parse()
 
 			p.parts = append(p.parts, Part{
-				FileParts: fileParser.Parts(),
-				IsFile:    true,
+				Lang:        lang,
+				Filename:    filename,
+				FileContent: fileContent,
+				FileParts:   fileParser.Parts(),
+				IsFile:      true,
 			})
 			last = i + 1
 		}
@@ -127,7 +139,7 @@ func (p *Parser) parseCodeHeader(line []byte, i int) (lang, filename []byte) {
 		}
 
 		lang = parts[0]
-		filename = parts[1][1 : len(parts[0])-1]
+		filename = parts[1][1 : len(parts[1])-1]
 	}
 
 	return lang, filename

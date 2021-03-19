@@ -1,0 +1,16 @@
+{{define "page-part"}}
+    {{$root := .}}
+    {{range .Parts}}
+        {{if .IsFile}}
+          <div class="file-row">
+              {{ template "file" .File }}
+          </div>
+        {{else}}
+          <div class="text-row">
+            <div class="text-content markdown-body">
+                {{ .Text }}
+            </div>
+          </div>
+        {{end}}
+    {{end}}
+{{end}}
