@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Bye by Example | Features of page formatting</title>
-  <link rel="stylesheet" href="/static/styles/style.css">
+  <link rel="stylesheet" href="/bye/static/styles/style.css">
 </head>
 <script>
   onkeydown = (e) => {
 
     if (e.key === 'ArrowLeft') {
-      window.location.href = '/getting-started\/index.html';
+      window.location.href = '\/bye/getting-started\/index.html';
     }
 
   };
@@ -95,9 +95,10 @@
 <body class="example-page">
 
 <header>
-  <a class="title" href="/index.html">Bye by Example</a>
+  <a class="title" href="/bye/index.html">Bye by Example</a>
 
-  <a class="github-link monospace" href="https://github.com/username/repo" target="_blank">Bye by Example on GitHub</a>
+  <a class="github-link monospace" href="https://github.com/username/repo" target="_blank">Bye by Example on
+    GitHub</a>
 </header>
 
 <main>
@@ -105,9 +106,9 @@
     <div class="tags">
 
 
-      <a class="tag monospace" href="/tags/format/index.html">#format</a>
+      <a class="tag monospace" href="/bye/tags/format/index.html">#format</a>
 
-      <a class="tag monospace" href="/tags/page/index.html">#page</a>
+      <a class="tag monospace" href="/bye/tags/page/index.html">#page</a>
 
     </div>
     <h1 class="example-title">Features of page formatting</h1>
@@ -120,7 +121,8 @@
   <div class="text-row">
     <div class="text-content markdown-body">
       <p>The main feature of <strong>bye</strong> is the generation of a two-column representation for the code, where
-        the code is on the right side and the comment is on the right side.</p>
+        the code is on the
+        right side and the comment is on the right side.</p>
 
       <p>To implement this, some features have been added to page formatting.</p>
 
@@ -211,17 +213,17 @@ func main() {
         </div>
 
         <div class="code-col chroma">
-            
+                
 
-            
+                  
 
-            
-                <pre><span class="kn">import</span> <span class="p">(</span>
+                  
+                    <pre><span class="kn">import</span> <span class="p">(</span>
     <span class="s">&#34;fmt&#34;</span>
 <span class="p">)</span>
 
 <span class="kd">func</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span
-                          class="p">{</span>
+                              class="p">{</span>
 </pre>
 
 
@@ -250,13 +252,13 @@ func main() {
         </div>
 
         <div class="code-col chroma">
-            
+                
 
-            
+                  
 
-            
-                <pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span
-                          class="p">(</span><span class="s">&#34;Hello bye!&#34;</span><span class="p">)</span>
+                  
+                    <pre>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span
+                              class="p">(</span><span class="s">&#34;Hello bye!&#34;</span><span class="p">)</span>
 <span class="p">}</span>
 </pre>
 
@@ -278,14 +280,17 @@ func main() {
       <h3>Code comments</h3>
 
       <p>Some comments can be very long and so that they do not interfere with reading the code, they can be folded with
-        an arrow next to the comment.</p>
+        an arrow
+        next to the comment.</p>
 
       <p>You might want to hide <strong>all comments</strong> in order to <em>fully enjoy</em> the code. To do this,
-        there is a <code>&quot;toggle comment&quot;</code> button above the code on the right, which will hide all
-        comments. There is also a button for copying a file next to it.</p>
+        there is a <code>&quot;toggle comment&quot;</code>
+        button above the code on the right, which will hide all comments. There is also a button for copying a file next
+        to it.</p>
 
       <p>In some cases, you will want to leave a comment in the code, in which case you need to put a exclamation mark
-        after the symbols of the beginning of the comments</p>
+        after the
+        symbols of the beginning of the comments</p>
 
     </div>
   </div>
@@ -343,8 +348,10 @@ echo $a;
       <h3>Themes</h3>
 
       <p><strong>bye</strong> tries to be comfortable for customizing both <em>layout</em> and <em>styles</em>. By
-        default, you already have two styles. The current style is <em>standard light</em>, but you can switch to <em>dark</em>
-        as well. To do this, change the value of the <code>theme</code> field in the config.</p>
+        default, you already have two styles. The
+        current style is <em>standard light</em>, but you can switch to <em>dark</em> as well. To do this, change the
+        value of the <code>theme</code>
+        field in the config.</p>
 
     </div>
   </div>
@@ -393,8 +400,9 @@ echo $a;
       <h3>Tags</h3>
 
       <p><strong>bye</strong> has the ability to give each page specific tags. Tags are set in the page description in
-        the config in the <code>tags</code> field. For each tag, its own page will be created, where all pages with this
-        tag will be.</p>
+        the config in
+        the <code>tags</code> field. For each tag, its own page will be created, where all pages with this tag will be.
+      </p>
 
     </div>
   </div>
@@ -468,13 +476,13 @@ echo $a;
         </div>
 
         <div class="code-col chroma">
-            
+                
 
-            
+                  
 
-            
-                <pre><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span
-                          class="w"> </span><span class="p">[</span><span class="w">
+                  
+                    <pre><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span
+                              class="w"> </span><span class="p">[</span><span class="w">
 </span><span class="w">          </span><span class="s2">&#34;tag1&#34;</span><span class="p">,</span><span class="w">
 </span><span class="w">          </span><span class="s2">&#34;tag2&#34;</span><span class="p">,</span><span class="w">
 </span><span class="w">      </span><span class="p">]</span><span class="p">,</span><span class="w">
@@ -498,8 +506,8 @@ echo $a;
       <h3>Footer</h3>
 
       <p>Let&rsquo;s take a look at the bottom of the page. There you will see a footer that contains a link to the next
-        page (and the previous one, if it exists). You can use the <em>left-right arrows</em> to navigate through the
-        pages.</p>
+        page (and the
+        previous one, if it exists). You can use the <em>left-right arrows</em> to navigate through the pages.</p>
 
     </div>
   </div>
@@ -517,13 +525,13 @@ echo $a;
         <div class="generate-date monospace">
           <span>Generated March 19, 2021</span>
         </div>
-        <a class="post-preview-title" href="/getting-started/index.html">Getting started</a>
+        <a class="post-preview-title" href="/bye/getting-started/index.html">Getting started</a>
         <div class="tags">
 
 
-          <a class="tag monospace" href="/tags/bye/index.html">#bye</a>
+          <a class="tag monospace" href="/bye/tags/bye/index.html">#bye</a>
 
-          <a class="tag monospace" href="/tags/getting-started/index.html">#getting-started</a>
+          <a class="tag monospace" href="/bye/tags/getting-started/index.html">#getting-started</a>
 
         </div>
       </div>

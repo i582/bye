@@ -3,7 +3,7 @@
   title: "Bye by Example",
   source: "./pages",
   destination: "../docs",
-  site_root: "",
+  site_root: "/bye",
   site_root_local: "../docs",
   styles: "static/styles/style.css",
   templates: "static/templates",
