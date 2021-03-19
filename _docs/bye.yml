@@ -9,7 +9,7 @@
   templates: "static/templates",
   index_title: "Bye by Example",
   github_link: "https://github.com/username/repo",
-  theme: "dark",
+  theme: "light",
   pages: [
     {
       name: "install",
